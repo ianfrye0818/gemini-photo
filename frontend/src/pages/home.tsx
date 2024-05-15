@@ -62,7 +62,7 @@ export default function Home() {
         addPhoto={addPhoto}
         photo={photo}
       />
-      {!previewUrl ? (
+      {!previewUrl && data ? (
         <DescribeImage {...data!} />
       ) : (
         <DataComponent
