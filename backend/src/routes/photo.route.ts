@@ -1,17 +1,15 @@
 import express from 'express';
-import { uploadAndDescribe } from '../controllers/photo.controller';
 import path from 'path';
-
+import { v4 as uuidv4 } from 'uuid';
 import multer from 'multer';
+import { uploadAndDescribe } from '../controllers/photo.controller';
 
 const storage = multer.diskStorage({
   destination: 'uploads/',
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  filename: (_, file, cb) => {
+    cb(null, uuidv4() + path.extname(file.originalname));
   },
 });
-
 const upload = multer({ storage });
 
 const route = express.Router();
